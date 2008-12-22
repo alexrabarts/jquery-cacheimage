@@ -23,6 +23,16 @@ Cache several images:
     $('#myImages img').cacheImage();
   </pre>
 
+Add some callbacks:
+
+  <pre>
+    $.cacheImage('/path/to/image.png', {
+      load : function (e) { console.log('Loaded',  this, e); },
+      error: function (e) { console.log('Error',   this, e); },
+      abort: function (e) { console.log('Aborted', this, e); }
+    });
+  </pre>
+
 # Licensing
 
 Licensed under the MIT:
