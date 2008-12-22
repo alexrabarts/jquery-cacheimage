@@ -1,0 +1,100 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>JavaScript unit test file</title>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+
+  <script src="http://code.jquery.com/jquery-latest.js" type="text/javascript"></script>
+  <script src="http://dev.jquery.com/view/trunk/qunit/testrunner.js" type="text/javascript"></script>
+
+  <script src="jquery.cacheimage.js" type="text/javascript"></script>
+
+  <link rel="stylesheet" href="http://dev.jquery.com/view/trunk/qunit/testsuite.css" type="text/css" media="screen" />
+
+  <style type="text/css">
+    #main { display: none; }
+  </style>
+</head>
+<body>
+  <h1>jquery.cacheimage.js tests</h1>
+  <h2 id="banner"></h2>
+  <h2 id="userAgent"></h2>
+
+  <ol id="tests"></ol>
+
+  <div id="main">
+    <img src="fixtures/images/stateless-logo.png" id="image1" alt="" />
+  </div>
+
+  <script type="text/javascript">
+    //<![CDATA[
+    (function ($) {
+      test('Image from DOM should be loaded into memory', function () {
+        stop();
+
+        $('#image1').cacheImage({
+          load: function (e) {
+            ok(this.height > 0, 'Image loaded');
+            start();
+          },
+          error: function (e) {
+            ok(false, 'Image ' + this.src + ' did not load');
+            start();
+          }
+        });
+      });
+
+      test('Image from static call should be loaded into memory', function () {
+        stop();
+
+        var image = $.cacheImage(url('fixtures/images/stateless-logo.png'), {
+          load: function (e) {
+            ok(this.height > 0, 'Image loaded');
+            start();
+          },
+          error: function (e) {
+            ok(false, 'Image ' + this.src + ' did not load');
+            start();
+          }
+        });
+
+        ok(image.height === 0, 'Image not in cache');
+      });
+
+      test('Multiple images from static call should be loaded into memory', function () {
+        var loaded = 0;
+        stop();
+
+        var image = $.cacheImage([url('fixtures/images/stateless-logo.png'), url('fixtures/images/stateless-logo.png')], {
+          load: function (e) {
+            loaded++;
+            if (loaded === 2) {
+              ok(this.height > 0, 'Images loaded');
+              start();
+            }
+          },
+          error: function (e) {
+            ok(false, 'Image ' + this.src + ' did not load');
+            start();
+          }
+        });
+
+        ok(image.height === 0, 'Image not in cache');
+      });
+
+      test('Error callback should be called on error', function () {
+        stop();
+
+        var image = $.cacheImage('http://localhost/no-such-image', {
+          error: function (e) {
+            ok(e.type === 'error', 'Error was caught');
+            start();
+          }
+        });
+      });
+    })(jQuery);
+    //]]>
+  </script>
+</body>
+</html>
