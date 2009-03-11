@@ -9,29 +9,29 @@ events are provided.
 
 Cache an image:
 
-  <pre>
-    $.cacheImage('/path/to/image.png');
-    // or if you have images hidden in the DOM:
-    $('#myImage').cacheImage();
-  </pre>
+<pre>
+  $.cacheImage('/path/to/image.png');
+  // or if you have images hidden in the DOM:
+  $('#myImage').cacheImage();
+</pre>
 
 Cache several images:
 
-  <pre>
-    $.cacheImage(['/path/to/an/image.png', '/path/to/another/image.png'])
-    // or if you have images hidden in the DOM:
-    $('#myImages img').cacheImage();
-  </pre>
+<pre>
+  $.cacheImage(['/path/to/an/image.png', '/path/to/another/image.png'])
+  // or if you have images hidden in the DOM:
+  $('#myImages img').cacheImage();
+</pre>
 
 Add some callbacks:
 
-  <pre>
-    $.cacheImage('/path/to/image.png', {
-      load : function (e) { console.log('Loaded',  this, e); },
-      error: function (e) { console.log('Error',   this, e); },
-      abort: function (e) { console.log('Aborted', this, e); }
-    });
-  </pre>
+<pre>
+  $.cacheImage('/path/to/image.png', {
+    load : function (e) { console.log('Loaded',  this, e); },
+    error: function (e) { console.log('Error',   this, e); },
+    abort: function (e) { console.log('Aborted', this, e); }
+  });
+</pre>
 
 # Licensing
 
