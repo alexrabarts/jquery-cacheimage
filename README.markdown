@@ -5,6 +5,8 @@ plugin can be used to eliminate flashes of unstyled content (FOUC) and
 improve perceived page load time.  Callbacks for load, error and abort
 events are provided.
 
+See full documentation at <a href="http://alexrabarts.github.com/jquery-cacheimage/">http://alexrabarts.github.com/jquery-cacheimage/</a>.
+
 ## Usage
 
 Cache an image:
