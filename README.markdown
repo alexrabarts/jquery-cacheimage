@@ -27,9 +27,11 @@ Add some callbacks:
 
   <pre>
     $.cacheImage('/path/to/image.png', {
-      load : function (e) { console.log('Loaded',  this, e); },
-      error: function (e) { console.log('Error',   this, e); },
-      abort: function (e) { console.log('Aborted', this, e); }
+      load    : function (e) { console.log('Loaded',    this, e); },
+      error   : function (e) { console.log('Error',     this, e); },
+      abort   : function (e) { console.log('Aborted',   this, e); },
+      // complete callback is called on load, error and abort
+      complete: function (e) { console.log('Completed', this, e); }
     });
   </pre>
 

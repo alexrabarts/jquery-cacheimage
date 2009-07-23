@@ -16,7 +16,7 @@
  *
  * @author   Alex Rabarts (alexrabarts -at- gmail -dawt- com)
  * @requires jQuery v1.2 or later
- * @version  0.1
+ * @version  0.2
  */
 
 (function ($) {
@@ -34,7 +34,11 @@
 
       $.each(['load', 'error', 'abort'], function () { // Callbacks
         var e = String(this);
-        if (typeof options[e] === 'function') { $(image)[e](options[e]); }
+        if (typeof options[e] === 'function') { $(image).bind(e, options[e]); }
+
+        if (typeof options.complete === 'function') {
+          $(image).bind(e, options.complete);
+        }
       });
 
       image.src = src;
