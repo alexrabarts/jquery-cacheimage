@@ -19,35 +19,35 @@
  * @version  0.1
  */
 
- (function ($) {
-   $.extend($, {
-     cacheImage: function (src, options) {
-       if (typeof src === 'object') {
-         $.each(src, function () {
-           $.cacheImage(String(this), options);
-         });
-       }
+(function ($) {
+  $.extend($, {
+    cacheImage: function (src, options) {
+      if (typeof src === 'object') {
+        $.each(src, function () {
+          $.cacheImage(String(this), options);
+        });
+      }
 
-       var image = new Image();
+      var image = new Image();
 
-       options = options || {};
+      options = options || {};
 
-       $.each(['load', 'error', 'abort'], function () { // Callbacks
-         var e = String(this);
-         if (typeof options[e] === 'function') { $(image)[e](options[e]); }
-       });
+      $.each(['load', 'error', 'abort'], function () { // Callbacks
+        var e = String(this);
+        if (typeof options[e] === 'function') { $(image)[e](options[e]); }
+      });
 
-       image.src = src;
+      image.src = src;
 
-       return image;
-     }
-   });
+      return image;
+    }
+  });
 
-   $.extend($.fn, {
-     cacheImage: function (options) {
-       return this.each(function () {
-         $.cacheImage(this.src, options);
-       });
-     }
-   });
- })(jQuery);
+  $.extend($.fn, {
+    cacheImage: function (options) {
+      return this.each(function () {
+        $.cacheImage(this.src, options);
+      });
+    }
+  });
+})(jQuery);

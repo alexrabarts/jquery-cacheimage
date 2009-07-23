@@ -93,6 +93,28 @@
           }
         });
       });
+
+      test('Complete callback should be called on error', function () {
+        stop();
+
+        var image = $.cacheImage('http://localhost/no-such-image', {
+          complete: function (e) {
+            ok(true, 'Complete callback was triggered on error');
+            start();
+          }
+        });
+      });
+
+      test('Complete callback should be called on load', function () {
+        stop();
+
+        var image = $.cacheImage('fixtures/images/stateless-logo.png', {
+          complete: function (e) {
+            ok(true, 'Complete callback was triggered on load');
+            start();
+          }
+        });
+      });
     })(jQuery);
     //]]>
   </script>
