@@ -16,7 +16,7 @@
  *
  * @author   Alex Rabarts (alexrabarts -at- gmail -dawt- com)
  * @requires jQuery v1.2 or later
- * @version  0.2
+ * @version  0.2.1
  */
 
 (function ($) {
@@ -26,6 +26,8 @@
         $.each(src, function () {
           $.cacheImage(String(this), options);
         });
+
+        return;
       }
 
       var image = new Image();

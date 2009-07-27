@@ -66,7 +66,7 @@
         var loaded = 0;
         stop();
 
-        var image = $.cacheImage([url('fixtures/images/stateless-logo.png'), url('fixtures/images/stateless-logo.png')], {
+        $.cacheImage([url('fixtures/images/stateless-logo.png'), url('fixtures/images/stateless-logo.png')], {
           load: function (e) {
             loaded++;
             if (loaded === 2) {
@@ -79,8 +79,6 @@
             start();
           }
         });
-
-        ok(image.height === 0, 'Image not in cache');
       });
 
       test('Error callback should be called on error', function () {
