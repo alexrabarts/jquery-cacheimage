@@ -1,0 +1,21 @@
+{
+  "name": "cacheimage",
+  "version": "1.0.0",
+  "title": "jQuery cacheImage",
+  "author": {
+    "name": "Alex Rabarts",
+    "url": "http://github.com/alexrabarts"
+  },
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "http://www.opensource.org/licenses/mit-license.php"
+    }
+  ],
+  "dependencies":  {
+    "jquery": ">=1.2"
+  },
+  "description": "cacheImage is a simple jQuery plugin for pre-caching images.  The plugin can be used to eliminate flashes of unstyled content (FOUC) and improve perceived page load time.  Callbacks for load, error and abort events are provided.",
+  "homepage": "http://github.com/alexrabarts/jquery-cacheimage",
+  "bugs": "https://github.com/alexrabarts/jquery-cacheimage/issues"
+}
