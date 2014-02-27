@@ -6,40 +6,68 @@
  */
 
 (function ($) {
-  $.extend($, {
-    cacheImage: function (src, options) {
-      if (typeof src === 'object') {
-        $.each(src, function () {
-          $.cacheImage(String(this), options);
-        });
+    $.extend($, {
+        cacheImage: function (src, options, deferred) {
 
-        return;
-      }
+            if (typeof src === 'object') {
+                var deferredObjs = [];
 
-      var image = new Image();
+                $.each(src, function (i) {
+                    deferredObjs.push($.Deferred());
+                    $.cacheImage(String(this), options, deferredObjs[i]);
+                });
+                if (!deferred) {
+                    $.when.apply($, deferredObjs).done(function() {
+                        if (typeof options.allDone === 'function') {
+                            options.allDone();
+                        }
+                    });
+                }
 
-      options = options || {};
+                return;
+            }
 
-      $.each(['load', 'error', 'abort'], function () { // Callbacks
-        var e = String(this);
-        if (typeof options[e] === 'function') { $(image).bind(e, options[e]); }
+            if (!src) {
+                deferred.resolve();
+                if (typeof options.complete === 'function') {
+                    options.complete();
+                }
+            }
 
-        if (typeof options.complete === 'function') {
-          $(image).bind(e, options.complete);
+            var image = new Image();
+
+            options = options || {};
+
+            $.each(['load', 'error', 'abort'], function () { // Callbacks
+                var e = String(this);
+                if (typeof options[e] === 'function') { $(image).bind(e, options[e]); }
+
+                $(image).bind(e, function(){
+                    if (typeof options.complete === 'function') {
+                        options.complete();
+                    }
+
+                    deferred.resolve();
+                });
+            });
+
+            image.src = src;
+
+            return image;
         }
-      });
+    });
 
-      image.src = src;
 
-      return image;
-    }
-  });
+    $.extend($.fn, {
+        cacheImage: function (options) {
 
-  $.extend($.fn, {
-    cacheImage: function (options) {
-      return this.each(function () {
-        $.cacheImage(this.src, options);
-      });
-    }
-  });
+            var images = [];
+            this.each(function(){
+                images.push(this.src);
+            });
+
+            $.cacheImage(images, options);
+            return this;
+        }
+    });
 })(jQuery);
